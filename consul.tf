@@ -189,3 +189,13 @@ resource "aws_instance" "consul_client_db" {
     Name = "dbservice-${count.index}"
   }
 }
+
+resource "consul_acl_policy" "test" {
+  name        = "my_policy"
+  datacenters = ["${local.consul_datacenter}"]
+  rules       = <<-RULE
+    node_prefix "" {
+      policy = "read"
+    }
+    RULE
+}
