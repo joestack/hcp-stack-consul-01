@@ -197,5 +197,9 @@ resource "consul_acl_policy" "test" {
     node_prefix "" {
       policy = "read"
     }
+
+    service_prefix "" {
+      policy = "read"
+    }
     RULE
 }
