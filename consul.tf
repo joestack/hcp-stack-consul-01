@@ -190,7 +190,7 @@ resource "aws_instance" "consul_client_db" {
   }
 }
 
-resource "consul_acl_policy" "test" {
+resource "consul_acl_policy" "agent" {
   name        = "my_policy"
   datacenters = ["${local.consul_datacenter}"]
   rules       = <<-RULE
@@ -202,4 +202,9 @@ resource "consul_acl_policy" "test" {
       policy = "read"
     }
     RULE
+}
+
+resource "consul_acl_token_policy_attachment" "attachment" {
+    token_id = "00000000-0000-0000-0000-000000000002"
+    policy   = "${consul_acl_policy.agent.name}"
 }
